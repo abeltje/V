@@ -1,11 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-# t/lib should contain Test::More although you
-# probably already have it for Module::Info
-use File::Spec;
-use FindBin;
-use lib File::Spec->catdir( $FindBin::Bin, 'lib' );
+# $Id$
 
 use Test::More tests => 3;
 

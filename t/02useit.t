@@ -1,11 +1,9 @@
 #!/usr/bin/perl -w
 use strict;
 
-use File::Spec;
-use FindBin;
-use lib File::Spec->catdir( $FindBin::Bin, 'lib' );
-
 $|=1;
+
+# $Id$
 
 use Test::More tests => 5;
 
