@@ -1,12 +1,9 @@
 package V;
 use strict;
-# use warnings FATAL => 'all';
-# sort of emulation for backward compatibility
-$^W = 1; local $SIG{__WARN__} = sub { die $_[0] };
 
 use vars qw( $VERSION $NO_EXIT );
-$VERSION  = 0.06;
-$NO_EXIT = 0; # prevent import() from exit()ing and fall of the edge
+$VERSION  = 0.07;
+$NO_EXIT ||= 0; # prevent import() from exit()ing and fall of the edge
 
 =head1 NAME
 
