@@ -1,10 +1,7 @@
+MANIFEST	# $Id$
 Changes
-MANIFEST
 Makefile.PL
 README
 V.pm
 t/01basic.t
 t/02useit.t
-t/lib/Test/Builder.pm
-t/lib/Test/More.pm
-t/lib/Test/Simple.pm

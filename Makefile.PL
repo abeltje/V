@@ -1,13 +1,17 @@
+#! usr/bin/perl -w
+use strict;
+
+# $Id$
+
 use ExtUtils::MakeMaker;
-# See lib/ExtUtils/MakeMaker.pm for details of how to influence
-# the contents of the Makefile that is written.
+
 WriteMakefile(
     'NAME'		=> 'V',
-    'VERSION_FROM'	=> 'V.pm', # finds $VERSION
-    'PREREQ_PM'		=> {  }, # e.g., Module::Name => 1.1
+    'VERSION_FROM'	=> 'V.pm',
+    'PREREQ_PM'		=> { Test::More => 0  },
 
     ($] >= 5.005 ?    ## Add these new keywords supported since 5.005
-        (ABSTRACT_FROM => 'V.pm', # retrieve abstract from module
+        (ABSTRACT_FROM => 'V.pm',
          AUTHOR        => 'Abe Timmerman <abeltje@cpan.org>') : ()
     ),
 );

@@ -1,4 +1,4 @@
-V version 0.07
+V version 0.08
 ==============
 
 This module uses stolen code from C<Module::Info> to find the location
@@ -21,13 +21,13 @@ INSTALLATION
 To install this module type the following:
 
    perl Makefile.PL
-   make
    make test
    make install
 
 DEPENDENCIES
 
-This module requires no other modules or libraries.
+This module requires no other modules or libraries (exept Test::More
+for the test-suite).
 
 COPYRIGHT AND LICENCE
 
@@ -35,3 +35,12 @@ Copyright (c) 2002 Abe Timmerman <abeltje@cpan.org>. All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
+
+See:
+    * http://www.perl.com/perl/misc/Artistic.html
+    * http://www.gnu.org/copyleft/gpl.html
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+

@@ -1,8 +1,9 @@
 package V;
 use strict;
 
+# $Id$
 use vars qw( $VERSION $NO_EXIT );
-$VERSION  = 0.07;
+$VERSION  = 0.08;
 $NO_EXIT ||= 0; # prevent import() from exit()ing and fall of the edge
 
 =head1 NAME
