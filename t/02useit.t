@@ -5,7 +5,7 @@ $|=1;
 
 # $Id$
 
-use Test::More tests => 5;
+use Test::More tests => 6;
 
 package Catch;
 sub TIEHANDLE { bless \( my $self ), shift }
@@ -34,3 +34,5 @@ ok( $$out, "V->import() produced output" );
 like( $$out, qr/^V\n/, "Module is V" );
 like( $$out, qr/^\t(.+?)V\.pm: $V::VERSION$/m, "VERSION is $V::VERSION" );
 is( $V::NO_EXIT, 1 , "Packagevar \$V::NO_EXIT set" );
+
+is V::get_version( 'V' ), $V::VERSION, "get_version()";

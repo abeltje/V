@@ -1,4 +1,4 @@
-V version 0.08
+V version 0.09
 ==============
 
 This module uses stolen code from C<Module::Info> to find the location

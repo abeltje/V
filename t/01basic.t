@@ -11,13 +11,21 @@ ok( $V::VERSION, '$V::VERSION is there' );
 
 SKIP: {
     local *PIPE;
-    skip( "Could not fork: $!", 1 ) 
-        unless open PIPE, "$^X -Mblib -MV |";
-
-    my $out = do { local $/; <PIPE> };
-    
-    skip( "Error in pipe: $! [$?]", 1 )
-        unless close PIPE;
+    my $out;
+    if ( open PIPE, qq!$^X -Mblib -MV |! ) {
+        $out = do { local $/; <PIPE> };
+        unless ( close PIPE ) {
+            if ( open PIPE, qq!$^X -I. -e 'use V;' |! ) {
+                $out = do { local $/; <PIPE> };
+                skip "Error in pipe(2): $! [$?]", 1 unless close PIPE;
+            } else {
+                skip "Could not fork: $!", 1;
+            }
+            $out or skip "Error in pipe(1): $! [$?]", 1;
+        }
+    } else {
+        skip "Could not fork: $!";
+    }
 
     my( $version ) = $out =~ /^.+?([\d._]+)$/m;
 

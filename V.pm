@@ -3,7 +3,7 @@ use strict;
 
 # $Id$
 use vars qw( $VERSION $NO_EXIT );
-$VERSION  = 0.08;
+$VERSION  = 0.09;
 $NO_EXIT ||= 0; # prevent import() from exit()ing and fall of the edge
 
 =head1 NAME
@@ -17,6 +17,14 @@ V - Print version of the specified module(s).
 or if you want more than one
 
     $ perl -MV=CPAN,V
+
+Can now also be used as a light-weight module for getting versions of
+modules without loading them:
+
+    BEGIN { $V::NO_EXIT = 1 }
+    require V;
+
+    printf "%s has version '%s'\n", "V", V::get_version( "V" );
 
 =head1 DESCRIPTION
 
@@ -53,6 +61,12 @@ sub import {
         report_pkg $pkg, @modules;
     }
     exit() unless $NO_EXIT;
+}
+
+sub get_version {
+    my( $pkg ) = @_;
+    my( $first ) = V::Module::Info->all_installed( $pkg );
+    return $first ? $first->version : undef;
 }
 
 caller or V->import( @ARGV );
