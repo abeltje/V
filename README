@@ -1,0 +1,36 @@
+V version 0.05
+==============
+
+This module uses stolen code from C<Module::Info> to find the location
+ and version of the specified module(s). It prints them and exit()s.
+
+It works by definening C<import()> and is based on an idea from Michael Schwern
+on the perl5-porters list. See the discussion:
+
+   http://www.xray.mpe.mpg.de/mailing-lists/perl5-porters/2002-01/msg00760.html
+
+    $ perl -MV=Module::Info
+
+or if you want more than one
+
+    $ perl -MV=CPAN,Module::Info
+
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DEPENDENCIES
+
+This module requires no other modules or libraries:
+
+COPYRIGHT AND LICENCE
+
+Copyright (c) 2002 Abe Timmerman <abeltje@cpan.org>. All rights reserved. 
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
