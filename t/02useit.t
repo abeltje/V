@@ -1,11 +1,12 @@
 #!/usr/bin/perl -w
 use strict;
 
-BEGIN { -d 't' and chdir 't'; }
+use File::Spec;
+use FindBin;
+use lib File::Spec->catdir( $FindBin::Bin, 'lib' );
+
 $|=1;
 
-# t/lib should contain Test::More
-use lib 'lib';
 use Test::More tests => 5;
 
 package Catch;
