@@ -3,7 +3,7 @@ use strict;
 
 # $Id$
 use vars qw( $VERSION $NO_EXIT );
-$VERSION  = 0.09;
+$VERSION  = '0.10';
 $NO_EXIT ||= 0; # prevent import() from exit()ing and fall of the edge
 
 =head1 NAME
@@ -28,7 +28,7 @@ modules without loading them:
 
 =head1 DESCRIPTION
 
-This module uses stolen code from C<Module::Info> to find the location 
+This module uses stolen code from L<Module::Info> to find the location 
 and version of the specified module(s). It prints them and exit()s.
 
 It defines C<import()> and is based on an idea from Michael Schwern
@@ -38,7 +38,24 @@ on the perl5-porters list. See the discussion:
 
 =head1 AUTHOR
 
-20020116 Abe Timmerman <abeltje@cpan.org>
+(c) 2002-2004 Abe Timmerman <abeltje@cpan.org>. All rights reserved.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+See:
+
+=over 4
+
+item * L<http://www.perl.com/perl/misc/Artistic.html>
+
+item * L<http://www.gnu.org/copyleft/gpl.html>
+
+=back
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 =cut
 
