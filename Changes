@@ -10,6 +10,17 @@ The filelists have a short symbolic indicator:
 
 Enjoy!
 ___________________________________________________________________________
+[   932] By: abeltje                          on 2006-02-03 17:04:17 +0100
+        Log: * [CHANGE]
+	       + add untainting stuff by Stas Bekman (2004/03/24)
+        Url: http://ztreet.xs4all.nl/svn/V
+           ! /V/V.pm
+___________________________________________________________________________
+[   661] By: abeltje                          on 2004-03-24 07:44:42 +0100
+        Log: * Regen Changes for 0.10
+        Url: http://ztreet.xs4all.nl/svn/V
+           ! /V/Changes
+___________________________________________________________________________
 [   660] By: abeltje                          on 2004-03-24 07:43:27 +0100
         Log: * [CHANGE]
 	       * added the license stuff
