@@ -3,7 +3,7 @@ use strict;
 
 # $Id$
 use vars qw( $VERSION $NO_EXIT );
-$VERSION  = '0.10';
+$VERSION  = '0.11';
 $NO_EXIT ||= 0; # prevent import() from exit()ing and fall of the edge
 
 =head1 NAME
@@ -116,7 +116,7 @@ sub all_installed {
     my($class) = ref $proto || $proto;
 
     @inc = @INC unless @inc;
-    my $file = File::Spec->catfile(split /::/, $name) . '.pm';
+    my $file = File::Spec->catfile(split m/::/, $name) . '.pm';
     
     my @modules = ();
     foreach my $dir (@inc) {
@@ -150,15 +150,16 @@ sub version {
         next if $inpod || /^\s*#/;
 
         chomp;
-        next unless /([\$*])(([\w\:\']*)\bVERSION)\b.*\=/;
+        next unless m/([\$*])(([\w\:\']*)\bVERSION)\b.*\=/;
+        { local($1, $2); ($_ = $_) = m/(.*)/; } # untaint
         my $eval = qq{
-                      package V::Module::Info::_version;
-                      no strict;
+            package V::Module::Info::_version;
+            no strict;
 
-                      local $1$2;
-                      \$$2=undef; do {
-                          $_
-                      }; \$$2
+            local $1$2;
+            \$$2=undef; do {
+                $_
+            }; \$$2
         };
         local $^W = 0;
         $result = eval($eval);
