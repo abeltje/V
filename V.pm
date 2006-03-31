@@ -2,8 +2,10 @@ package V;
 use strict;
 
 # $Id$
+
 use vars qw( $VERSION $NO_EXIT );
-$VERSION  = '0.11';
+$VERSION  = '0.12';
+
 $NO_EXIT ||= 0; # prevent import() from exit()ing and fall of the edge
 
 =head1 NAME
@@ -34,24 +36,18 @@ and version of the specified module(s). It prints them and exit()s.
 It defines C<import()> and is based on an idea from Michael Schwern
 on the perl5-porters list. See the discussion:
 
-   http://www.xray.mpe.mpg.de/mailing-lists/perl5-porters/2002-01/msg00760.html
+  http://www.xray.mpe.mpg.de/mailing-lists/perl5-porters/2002-01/msg00760.html
 
 =head1 AUTHOR
 
-(c) 2002-2004 Abe Timmerman <abeltje@cpan.org>. All rights reserved.
+Abe Timmerman C<< <abeltje@cpan.org> >>.
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2002-2006 Abe Timmerman, All Rights Reserved.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
-
-See:
-
-=over 4
-
-item * L<http://www.perl.com/perl/misc/Artistic.html>
-
-item * L<http://www.gnu.org/copyleft/gpl.html>
-
-=back
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -190,5 +186,3 @@ sub AUTOLOAD {
         goto &accessor;
     }
 }
-
-__END__
