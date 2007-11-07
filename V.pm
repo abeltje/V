@@ -4,7 +4,7 @@ use strict;
 # $Id$
 
 use vars qw( $VERSION $NO_EXIT );
-$VERSION  = '0.12';
+$VERSION  = '0.13';
 
 $NO_EXIT ||= 0; # prevent import() from exit()ing and fall of the edge
 
@@ -137,10 +137,12 @@ sub version {
 
     my $parsefile = $self->file;
 
+    local *MOD;
     open(MOD, $parsefile) or die $!;
 
     my $inpod = 0;
     my $result;
+    local $_;
     while (<MOD>) {
         $inpod = /^=(?!cut)/ ? 1 : /^=cut/ ? 0 : $inpod;
         next if $inpod || /^\s*#/;
