@@ -1,13 +1,11 @@
-#! perl
-use warnings;
+#! perl -w
 use strict;
 
-# $Id$
 use Test::More tests => 2;
 
 BEGIN { $V::NO_EXIT = $V::NO_EXIT = 1 }
 
-require_ok 'V';
+require_ok('./V.pm');
 
 my @modules = map {
     s{/}{::}g; s{\.pm$}{};
@@ -20,4 +18,3 @@ my $versions = eval {
 };
 
 is $@, "", "readonly bug";
-

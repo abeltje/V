@@ -1,10 +1,8 @@
 package V;
 use strict;
 
-# $Id$
-
 use vars qw( $VERSION $NO_EXIT );
-$VERSION  = '0.13';
+$VERSION  = '0.13_01';
 
 $NO_EXIT ||= 0; # prevent import() from exit()ing and fall of the edge
 
@@ -30,7 +28,7 @@ modules without loading them:
 
 =head1 DESCRIPTION
 
-This module uses stolen code from L<Module::Info> to find the location 
+This module uses stolen code from L<Module::Info> to find the location
 and version of the specified module(s). It prints them and exit()s.
 
 It defines C<import()> and is based on an idea from Michael Schwern
@@ -67,9 +65,12 @@ sub report_pkg($@) {
 
 sub import {
     shift;
-    @_ or push @_, 'V';
- 
-   for my $pkg ( @_ ) {
+    my @pkgs = grep
+        $_ ne ''
+    , map { (my $x = $_ ) =~ s/[\n\s]+//g; $x } @_;
+    @pkgs or push @pkgs, 'V';
+
+   for my $pkg ( @pkgs ) {
         my @modules = V::Module::Info->all_installed( $pkg );
         report_pkg $pkg, @modules;
     }
@@ -113,7 +114,7 @@ sub all_installed {
 
     @inc = @INC unless @inc;
     my $file = File::Spec->catfile(split m/::/, $name) . '.pm';
-    
+
     my @modules = ();
     foreach my $dir (@inc) {
         # Skip the new code ref in @INC feature.
@@ -127,7 +128,7 @@ sub all_installed {
             push @modules, $module;
         }
     }
-              
+
     return @modules;
 }
 

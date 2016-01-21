@@ -3,14 +3,12 @@ use strict;
 
 $|=1;
 
-# $Id$
-
 use Test::More tests => 6;
 
 package Catch;
 sub TIEHANDLE { bless \( my $self ), shift }
 sub PRINT  { my $self = shift; $$self .= $_[0] }
-sub PRINTF { 
+sub PRINTF {
     my $self = shift;
     my $format = shift;
     $$self .= sprintf $format, @_;
@@ -21,9 +19,9 @@ package main;
 my $out;
 local *CATCHOUT;
 #BEGIN {
-    $out = tie *CATCHOUT, 'Catch'; 
+    $out = tie *CATCHOUT, 'Catch';
     select CATCHOUT;
-    require_ok( 'V' );
+    require_ok('./V.pm');
     $V::NO_EXIT = 1;
 #}
 
@@ -35,4 +33,7 @@ like( $$out, qr/^V\n/, "Module is V" );
 like( $$out, qr/^\t(.+?)V\.pm: $V::VERSION$/m, "VERSION is $V::VERSION" );
 is( $V::NO_EXIT, 1 , "Packagevar \$V::NO_EXIT set" );
 
-is V::get_version( 'V' ), $V::VERSION, "get_version()";
+{
+    local @INC = ('.', @INC);
+    is(V::get_version('V'), $V::VERSION, "get_version()");
+}

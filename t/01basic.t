@@ -5,14 +5,15 @@ use strict;
 
 use Test::More tests => 3;
 
-require_ok( 'V' );
+require_ok('./V.pm');
 
 ok( $V::VERSION, '$V::VERSION is there' );
 
 SKIP: {
+    my $extra = (-d './blib')  ? '-Mblib' : '-Mlib=.';
     local *PIPE;
     my $out;
-    if ( open PIPE, qq!$^X -Mblib -MV |! ) {
+    if ( open PIPE, qq!$^X $extra -MV |! ) {
         $out = do { local $/; <PIPE> };
         unless ( close PIPE ) {
             if ( open PIPE, qq!$^X -I. -e 'use V;' |! ) {
