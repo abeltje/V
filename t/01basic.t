@@ -10,9 +10,10 @@ require_ok( 'V' );
 ok( $V::VERSION, '$V::VERSION is there' );
 
 SKIP: {
+    local $ENV{PERL5OPT} = -d 'blib' ? '-Mblib' : '-Mlib=lib';
     local *PIPE;
     my $out;
-    if ( open PIPE, qq!$^X -Mblib -MV |! ) {
+    if ( open PIPE, qq!$^X -MV |! ) {
         $out = do { local $/; <PIPE> };
         unless ( close PIPE ) {
             if ( open PIPE, qq!$^X -I. -e 'use V;' |! ) {
