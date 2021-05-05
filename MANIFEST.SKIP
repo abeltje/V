@@ -1,0 +1,5 @@
+\..+\.swp$
+MYMETA\.
+\.git
+\.git(ignore|attributes)
+core-t/

@@ -1,8 +1,6 @@
 package V;
 use strict;
 
-# $Id$
-
 use vars qw( $VERSION $NO_EXIT );
 $VERSION  = '0.13';
 
@@ -30,7 +28,7 @@ modules without loading them:
 
 =head1 DESCRIPTION
 
-This module uses stolen code from L<Module::Info> to find the location 
+This module uses stolen code from L<Module::Info> to find the location
 and version of the specified module(s). It prints them and exit()s.
 
 It defines C<import()> and is based on an idea from Michael Schwern
@@ -68,7 +66,7 @@ sub report_pkg($@) {
 sub import {
     shift;
     @_ or push @_, 'V';
- 
+
    for my $pkg ( @_ ) {
         my @modules = V::Module::Info->all_installed( $pkg );
         report_pkg $pkg, @modules;
@@ -113,7 +111,7 @@ sub all_installed {
 
     @inc = @INC unless @inc;
     my $file = File::Spec->catfile(split m/::/, $name) . '.pm';
-    
+
     my @modules = ();
     foreach my $dir (@inc) {
         # Skip the new code ref in @INC feature.
@@ -127,7 +125,7 @@ sub all_installed {
             push @modules, $module;
         }
     }
-              
+
     return @modules;
 }
 
@@ -163,6 +161,10 @@ sub version {
         $result = eval($eval);
         warn "Could not eval '$eval' in $parsefile: $@" if $@;
         $result = "undef" unless defined $result;
+
+        # use the version modulue to deal with v-strings
+        require version;
+        $result = version->parse($result);
         last;
     }
     close MOD;

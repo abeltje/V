@@ -1,8 +1,11 @@
 MANIFEST	# $Id$
+MANIFEST.SKIP
 Changes
 Makefile.PL
-README
-V.pm
+README.md
+lib/V.pm
+t/lib/V_Version.pm
 t/01basic.t
 t/02useit.t
 t/03bug.t
+t/04v_version.t
