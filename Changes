@@ -1,12 +1,19 @@
-Changes on 2021-05-05 for repository at:
+Changes on 2021-05-06 for repository at:
   Fetch URL: ssh://git@source.test-smoke.org:9999/~/V
   Push  URL: ssh://git@source.test-smoke.org:9999/~/V
 
 Enjoy!
 
-0.13_01 2021-05-06T00:16:18+02:00 (33b5717 => Abe Timmerman)
- - (Abe Timmerman, 2 seconds ago) Autocommit for distribution V 0.13_01
+0.13_02 2021-05-06T23:37:12+02:00 (8be0303 => Abe Timmerman)
+ - (Abe Timmerman, 2 seconds ago) Autocommit for distribution V 0.13_02
+   (same)
+
+0.13_01 2021-05-06T00:16:18+02:00 (d7f4f5f => Abe Timmerman)
+ - (Abe Timmerman, 23 hours ago) Autocommit for distribution V 0.13_01
    (test)
+
+ - (Abe Timmerman, 7 minutes ago) Introduce t::Test::abeltje
+ -     This needed some kwalitee changes, mostly in POD
 
 0.00_00 2003-03-09T23:16:24+00:00 (fc60a31 => abeltje)
  - (abeltje, 18 years ago) Create space for the V module
@@ -111,7 +118,7 @@ Enjoy!
  -     git-svn-id: https://source.test-smoke.org/repos/cpan/trunk/V@86
    03e79c58-f747-0410-a819-f71e7ca513d9
 
- - (Abe Timmerman, 38 minutes ago) Fix bug with v-strings and update
+ - (Abe Timmerman, 24 hours ago) Fix bug with v-strings and update
    repository
  -     Whenever a module used a v-string-version the module would return
    undef,
@@ -121,4 +128,4 @@ Enjoy!
  -     - Moved README to README.md and added some markdown
  -     - added a .gitignore and MANIFEST.SKIP
 
- - (Abe Timmerman, 2 minutes ago) Fix test to also run under 'prove'
+ - (Abe Timmerman, 23 hours ago) Fix test to also run under 'prove'
