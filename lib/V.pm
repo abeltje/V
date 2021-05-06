@@ -21,10 +21,40 @@ or if you want more than one
 Can now also be used as a light-weight module for getting versions of
 modules without loading them:
 
-    BEGIN { $V::NO_EXIT = 1 }
     require V;
-
     printf "%s has version '%s'\n", "V", V::get_version( "V" );
+
+If you want all available files/versions from C<@INC>:
+
+    require V;
+    my @all_V = V::Module::Info->all_installed("V");
+    printf "%s:\n", $all_V[0]->name;
+    printf "\t%-50s - %s\n", $_->file, $_->version
+        for @all_V;
+
+Each element in that array isa C<V::Module::Info> object with 3 attributes and a method:
+
+=over
+
+=item I<attribute> B<name>
+
+The package name.
+
+=item I<attribute> B<file>
+
+Full filename with directory.
+
+=item I<attribute> B<dir>
+
+The base directory (from C<@INC>) where the package-file was found.
+
+=item I<method> B<version>
+
+This method will look through the file to see if it can find a version
+assignment in the file and uses that determine the version. As of version
+0.13_01, all versions found are passed through the L<version> module.
+
+=back
 
 =head1 DESCRIPTION
 
@@ -34,7 +64,49 @@ and version of the specified module(s). It prints them and exit()s.
 It defines C<import()> and is based on an idea from Michael Schwern
 on the perl5-porters list. See the discussion:
 
-  http://www.xray.mpe.mpg.de/mailing-lists/perl5-porters/2002-01/msg00760.html
+  https://www.nntp.perl.org/group/perl.perl5.porters/2002/01/msg51007.html
+
+=head2 V::get_version($pkg)
+
+Returns the version of the first available file for this package as found by
+following C<@INC>.
+
+=head3 Arguments
+
+=over
+
+=item 1. $pkg
+
+The name of the package for which one wants to know the version.
+
+=back
+
+=head3 Response
+
+This C<V::get_version()> returns the version of the file that was first found
+for this package by following C<@INC> or C<undef> if no file was found.
+
+=begin implementation
+
+=head2 report_pkg
+
+This sub prints the results for a package.
+
+=head3 Arguments
+
+=over
+
+=item 1. $pkg
+
+The name of the package that was probed for versions
+
+=item 2. @versions
+
+An array of Module-objects with full path and version.
+
+=back
+
+=end implementation
 
 =head1 AUTHOR
 

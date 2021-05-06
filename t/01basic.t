@@ -1,9 +1,5 @@
-#!/usr/bin/perl -w
-use strict;
-
-# $Id$
-
-use Test::More tests => 3;
+#! perl -I.
+use t::Test::abeltje;
 
 require_ok( 'V' );
 
@@ -33,4 +29,4 @@ SKIP: {
     is( $version, $V::VERSION, "Version ok ($version)" );
 }
 
-__END__
+abeltje_done_testing();

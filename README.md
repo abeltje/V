@@ -1,6 +1,7 @@
 # **V** version 0.14
 
-This module uses stolen code from C<Module::Info> to find the location
+This module uses stolen code from
+[`Module::Info`](https://metacpan.org/pod/Module::Info) to find the location
 and version of the specified module(s). It prints them and exit()s.
 
 It works by definening `import()` and is based on an idea from Michael Schwern
@@ -11,7 +12,7 @@ discussion](https://www.nntp.perl.org/group/perl.perl5.porters/2002/01/msg51007.
     $ perl -MV=CPAN
 ```
 
-or if you want more than one
+or if you want more than one package
 
 ```
     $ perl -MV=CPAN,V
@@ -29,6 +30,11 @@ To install this module type the following commands:
 
 This module requires no other modules or libraries (exept
 [`Test::More`](https://metacpan.org/pod/Test::More) for the test-suite).
+
+# SEE ALSO
+
+To get more info on the programming interface see [`perldoc
+V`](https://metacpan.org/pod/V)
 
 # COPYRIGHT
 

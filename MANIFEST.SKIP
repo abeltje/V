@@ -3,3 +3,5 @@ MYMETA\.
 \.git
 \.git(ignore|attributes)
 core-t/
+Makefile$
+Makefile.bak
