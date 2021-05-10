@@ -4,14 +4,20 @@ Changes on 2021-05-10 for repository at:
 
 Enjoy!
 
-0.13_03 2021-05-10T18:39:36+02:00 (099ce99 => Abe Timmerman)
- - (Abe Timmerman, 13 seconds ago) Autocommit for distribution V 0.13_03
+0.13_04 2021-05-11T01:30:36+02:00 (856b3e8 => Abe Timmerman)
+ - (Abe Timmerman, 2 seconds ago) Autocommit for distribution V 0.13_04
    (test)
+
+0.13_03 2021-05-10T18:39:36+02:00 (32ae160 => Abe Timmerman)
+ - (Abe Timmerman, 7 hours ago) Autocommit for distribution V 0.13_03
+   (test)
+
+ - (Abe Timmerman, 33 seconds ago) Fix more things for MSWin32
 
 0.13_02 2021-05-06T23:37:12+02:00 (f6f9add => Abe Timmerman)
  - (Abe Timmerman, 4 days ago) Autocommit for distribution V 0.13_02 (same)
 
- - (Abe Timmerman, 2 minutes ago) Update the (test)dependencies for
+ - (Abe Timmerman, 7 hours ago) Update the (test)dependencies for
    t::Test::abeltje.
 
 0.13_01 2021-05-06T00:16:18+02:00 (d7f4f5f => Abe Timmerman)
