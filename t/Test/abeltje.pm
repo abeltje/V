@@ -21,8 +21,8 @@ our @EXPORT = (
 );
 
 sub import_extra {
-    warnings->import();
-    strict->import();
+    ::warnings->import();
+    ::strict->import();
 
     require feature;
     feature->import( ':5.10' );

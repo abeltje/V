@@ -5,3 +5,5 @@ MYMETA\.
 core-t/
 Makefile$
 Makefile.bak
+pm_to_blib
+blib/
