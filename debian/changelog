@@ -1,0 +1,11 @@
+libv-perl (0.16-2) unstable; urgency=medium
+
+  * fix builddeps
+
+ -- Abe Timmerman <abeltje@cpan.org>  Mon, 27 Feb 2023 17:05:43 +0100
+
+libv-perl (0.16-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Ubuntu <abeltje@cpan.org>  Mon, 27 Feb 2023 16:59:52 +0100

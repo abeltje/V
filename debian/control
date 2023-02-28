@@ -1,0 +1,26 @@
+Source: libv-perl
+Section: perl
+Priority: optional
+Maintainer: Ubuntu <abeltje@cpan.org>
+Build-Depends: debhelper-compat (= 13),
+               libtest-simple-perl,
+               libtest-fatal-perl,
+               libtest-warnings-perl
+Build-Depends-Indep: perl
+Standards-Version: 4.5.1
+Homepage: https://metacpan.org/release/V
+Rules-Requires-Root: no
+
+Package: libv-perl
+Architecture: all
+Depends: ${misc:Depends}, ${perl:Depends}
+Description: Print version of the specified module(s).
+ V uses stolen code from Module::Info to find the location and version of the
+ specified module(s). It prints them and exit()s.
+ .
+ It defines import() and is based on an idea from Michael Schwern on the
+ perl5-porters list. See the discussion:
+ .
+ https://www.nntp.perl.org/group/perl.perl5.porters/2002/01/msg51007.html
+ .
+ This description was automagically extracted from the module by dh-make-perl.
