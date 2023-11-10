@@ -1,6 +1,12 @@
-0.16_01 2023-11-10T15:30:39+01:00 (cb95677 => Abe Timmerman)
+0.16_02 2023-11-10T16:26:04+01:00 (88c903b => Abe Timmerman)
+ - (Abe Timmerman, Fri, 10 Nov 2023 16:26:04 +0100) Autocommit for
+   distribution V 0.16_02 (test)
+
+0.16_01 2023-11-10T15:30:39+01:00 (4de489d => Abe Timmerman)
  - (Abe Timmerman, Fri, 10 Nov 2023 15:30:39 +0100) Autocommit for
    distribution V 0.16_01 (test)
+ - (Abe Timmerman, Fri, 10 Nov 2023 16:23:21 +0100) Path need to be
+   portable, use File::Spec!
 
 0.16 2022-05-26T13:23:29+02:00 (47e59b4 => Abe Timmerman)
  - (Abe Timmerman, Thu, 26 May 2022 13:23:29 +0200) Autocommit for
