@@ -210,47 +210,78 @@ sub version {
     open(my $mod, '<', $parsefile) or die "open($parsefile): $!";
 
     my $inpod = 0;
-    my $result;
     local $_;
+    my @eval;
+    my $cur_pkg = "*";
     while (<$mod>) {
         $inpod = /^=(?!cut)/ ? 1 : /^=cut/ ? 0 : $inpod;
         next if $inpod || /^\s*#/;
 
         chomp;
-        my $eval;
+        if (m/^\s* (?:package|class) \s+ (\w+(?:::\w+)*) /x) {
+            $cur_pkg = $1;
+        }
+        next if $cur_pkg =~ m/^V::Module/;
+
         if (m/([\$*])(([\w\:\']*)\bVERSION)\b.*\=/) {
             { local($1, $2); ($_ = $_) = m/(.*)/; } # untaint
-            $eval = qq{
-                package V::Module::Info::_version;
-                no strict;
+            push(
+                @eval,
+                {
+                    prog => qq{
+                        package V::Module::Info::_version_var;
+                        # $cur_pkg
+                        no strict;
 
-                local $1$2;
-                \$$2=undef; do {
-                    $_
-                }; \$$2
-            };
+                        local $1$2;
+                        \$$2=undef; do {
+                            $_
+                        }; \$$2
+                    },
+                    pkg => $cur_pkg,
+                }
+            );
         }
         # perl 5.12.0+
         elsif (m/^\s* package \s+ [^\s]+ \s+ ([^;\{]+) [;\{]/x) {
-            $eval = qq{
-                package V::Module::Info::_version $1;
-                V::Module::Info::_version->VERSION;;
-            };
-        }
-        if (defined($eval)) {
-            local $^W = 0;
-            $result = eval($eval);
-            warn "Could not eval '$eval' in $parsefile: $@" if $@;
-            $result = "undef" unless defined $result;
-
-            # use the version modulue to deal with v-strings
-            require version;
-            $result = version->parse($result);
-            last;
+            my $ver = $1;
+            push(
+                @eval,
+                {
+                    prog => qq{
+                        package V::Module::Info::_version_static $ver;
+                        # $cur_pkg
+                        V::Module::Info::_version_static->VERSION;
+                    },
+                    pkg => $cur_pkg,
+                }
+            );
         }
     }
     close($mod);
-    return $result;
+
+    my @results;
+    while (@eval) {
+        my $eval = shift(@eval);
+        local $^W = 0;
+        my $result = eval($eval->{prog});
+        warn "Could not eval '$eval->{prog}' in $parsefile: $@" if $@;
+        $result = "undef" unless defined $result;
+
+        # use the version modulue to deal with v-strings
+        require version;
+        $result = version->parse($result);
+        push(@results, {version => $result, pkg => $eval->{pkg}});
+    }
+
+    for my $option (@results) {
+        next unless $option->{pkg} eq $self->name;
+        return $option->{version};
+    }
+    for my $option (@results) {
+        return $option->{version} if $option->{pkg} eq '*';
+    }
+    return "undef";
 }
 
 sub accessor {

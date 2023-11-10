@@ -11,6 +11,8 @@ t/02useit.t
 t/03bug.t
 t/04v_version.t
 t/05_pkgwithversion.t
+t/06_multi_version.t
+t/lib/GH/Issue1.pm
 t/lib/PkgWithVersion.pm
 t/lib/PkgWithVersion2.pm
 t/lib/V_Version.pm
