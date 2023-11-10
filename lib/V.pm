@@ -131,7 +131,16 @@ sub report_pkg($@) {
     print "$pkg\n";
     @_ or print "\tNot found\n";
     for my $module ( @_ ) {
-        printf "\t%s: %s\n", $module->file, $module->version || '?';
+        my ($versions) = $module->version;
+        if (@$versions > 1) {
+            printf "\t%s:\n", $module->file;
+            for my $option (@$versions) {
+                printf "\t    %s: %s\n", $option->{pkg}, $option->{version} || '';
+            }
+        }
+        else {
+            printf "\t%s: %s\n", $module->file, $versions->[0]{version} || '?';
+        }
     }
 }
 
@@ -201,7 +210,7 @@ sub all_installed {
     return @modules;
 }
 
-# Thieved from ExtUtils::MM_Unix 1.12603
+# Once thieved from ExtUtils::MM_Unix 1.12603
 sub version {
     my($self) = shift;
 
@@ -211,77 +220,86 @@ sub version {
 
     my $inpod = 0;
     local $_;
-    my @eval;
-    my $cur_pkg = "*";
+    my %eval;
+    my ($cur_pkg, $cur_ord) = ("main", 0);
+    $eval{$cur_pkg} = { ord => $cur_ord };
     while (<$mod>) {
         $inpod = /^=(?!cut)/ ? 1 : /^=cut/ ? 0 : $inpod;
         next if $inpod || /^\s*#/;
+        next if m/^\s*#/;
 
         chomp;
         if (m/^\s* (?:package|class) \s+ (\w+(?:::\w+)*) /x) {
             $cur_pkg = $1;
+            $eval{$cur_pkg} = { ord => ++$cur_ord } if !exists($eval{$cur_pkg});
         }
-        next if $cur_pkg =~ m/^V::Module/;
 
-        if (m/([\$*])(([\w\:\']*)\bVERSION)\b.*\=/) {
+        if (m/^[^=]*([\$*])(([\w\:\']*)\bVERSION)\b.*\=(?!~)/) {
             { local($1, $2); ($_ = $_) = m/(.*)/; } # untaint
-            push(
-                @eval,
-                {
-                    prog => qq{
-                        package V::Module::Info::_version_var;
-                        # $cur_pkg
-                        no strict;
+            my ($sigil, $name) = ($1, $2);
+            next if m/\$$name\s*=\s*eval.+\$$name/;
+            $eval{$cur_pkg}{prg} = qq{
+                package V::Module::Info::_version_var;
+                # $cur_pkg
+                no strict;
 
-                        local $1$2;
-                        \$$2=undef; do {
-                            $_
-                        }; \$$2
-                    },
-                    pkg => $cur_pkg,
-                }
-            );
+                local $sigil$name;
+                \$$name=undef; do {
+                    $_
+                }; \$$name
+            };
         }
         # perl 5.12.0+
         elsif (m/^\s* (?:package|class) \s+ [^\s]+ \s+ ([^;\{]+) [;\{]/x) {
             my $ver = $1;
-            push(
-                @eval,
-                {
-                    prog => qq{
-                        package V::Module::Info::_version_static $ver;
-                        # $cur_pkg
-                        V::Module::Info::_version_static->VERSION;
-                    },
-                    pkg => $cur_pkg,
-                }
-            );
+            $eval{$cur_pkg}{prg} = qq{
+                package V::Module::Info::_version_static $ver;
+                # $cur_pkg
+                V::Module::Info::_version_static->VERSION;
+            };
         }
     }
     close($mod);
 
+    # remove our stuff
+    delete($eval{$_}) for grep { m/^V::Module::Info/ } keys %eval;
+
     my @results;
-    while (@eval) {
-        my $eval = shift(@eval);
-        local $^W = 0;
-        my $result = eval($eval->{prog});
-        warn "Could not eval '$eval->{prog}' in $parsefile: $@" if $@;
-        $result = "undef" unless defined $result;
+    while (my ($pkg, $dat) = each(%eval)) {
+        my $result;
+        if ($dat->{prg}) {
+            local $^W = 0;
+            $result = eval($dat->{prg});
+            warn "Could not eval '$dat->{prg}' in $parsefile: $@" if $@;
 
-        # use the version modulue to deal with v-strings
-        require version;
-        $result = version->parse($result);
-        push(@results, {version => $result, pkg => $eval->{pkg}});
+            # use the version modulue to deal with v-strings
+            require version;
+            $dat->{ver} = $result = version->parse($result);
+        }
+        push(
+            @results,
+            {
+                (exists($dat->{ver}) ? (version => $result) : ()),
+                pkg => $pkg,
+                ord => $dat->{ord}
+            }
+        );
     }
 
-    for my $option (@results) {
-        next unless $option->{pkg} eq $self->name;
-        return $option->{version};
+    if (@results > 1) {
+        @results = grep {
+            $_->{pkg} ne 'main' || exists($_->{version})
+        } @results;
     }
-    for my $option (@results) {
-        return $option->{version} if $option->{pkg} eq '*';
+
+    if (! wantarray ) {
+        for my $option (@results) {
+            next unless $option->{pkg} eq $self->name;
+            return $option->{version};
+        }
+        return;
     }
-    return "undef";
+    return [ sort {$a->{ord} <=> $b->{ord} } @results ];
 }
 
 sub accessor {
