@@ -234,6 +234,8 @@ sub version {
             $eval{$cur_pkg} = { ord => ++$cur_ord } if !exists($eval{$cur_pkg});
         }
 
+        next if $cur_pkg =~ m{^V::Module::Info};
+
         if (m/^[^=]*([\$*])(([\w\:\']*)\bVERSION)\b.*\=(?!~)/) {
             { local($1, $2); ($_ = $_) = m/(.*)/; } # untaint
             my ($sigil, $name) = ($1, $2);
@@ -242,7 +244,6 @@ sub version {
                 package V::Module::Info::_version_var;
                 # $cur_pkg
                 no strict;
-
                 local $sigil$name;
                 \$$name=undef; do {
                     $_
@@ -252,11 +253,17 @@ sub version {
         # perl 5.12.0+
         elsif (m/^\s* (?:package|class) \s+ [^\s]+ \s+ ([^;\{]+) [;\{]/x) {
             my $ver = $1;
-            $eval{$cur_pkg}{prg} = qq{
-                package V::Module::Info::_version_static $ver;
-                # $cur_pkg
-                V::Module::Info::_version_static->VERSION;
-            };
+            if ( $] >= 5.012000 ) {
+                $eval{$cur_pkg}{prg} = qq{
+                    package V::Module::Info::_version_static $ver;
+                    # $cur_pkg
+                    V::Module::Info::_version_static->VERSION;
+                };
+            }
+            else {
+                warn("Your perl doesn't understand the version declaration of $cur_pkg\n");
+                $eval{$cur_pkg}{prg} = qq{ $ver };
+            }
         }
     }
     close($mod);
