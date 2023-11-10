@@ -1,6 +1,19 @@
-0.16_02 2023-11-10T16:26:04+01:00 (88c903b => Abe Timmerman)
+0.16_03 2023-11-10T19:40:30+01:00 (7540934 => Abe Timmerman)
+ - (Abe Timmerman, Fri, 10 Nov 2023 19:40:30 +0100) Autocommit for
+   distribution V 0.16_03 (test)
+
+0.16_02 2023-11-10T16:26:04+01:00 (e679804 => Abe Timmerman)
  - (Abe Timmerman, Fri, 10 Nov 2023 16:26:04 +0100) Autocommit for
    distribution V 0.16_02 (test)
+ - (Abe Timmerman, Fri, 10 Nov 2023 19:24:49 +0100) Update t::Test::abeltje
+   to 1.09
+ - (Abe Timmerman, Fri, 10 Nov 2023 19:25:12 +0100) Make an effort: we
+   support 5.10.1
+ -     The 'package Name 0.42' syntax is 5.12+ so, we need to account for
+   that.
+ -     This syntax shouldn't have an expression for the version, so it's
+   just
+ -     that what you parsed as version. warn() for $] < 5.012.
 
 0.16_01 2023-11-10T15:30:39+01:00 (4de489d => Abe Timmerman)
  - (Abe Timmerman, Fri, 10 Nov 2023 15:30:39 +0100) Autocommit for

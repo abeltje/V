@@ -1,3 +1,13 @@
+libv-perl (0.16-3) stable; urgency=low
+
+    * Make an effort: we support 5.10.1
+    
+    The 'package Name 0.42' syntax is 5.12+ so, we need to account for that.
+    This syntax shouldn't have an expression for the version, so it's just
+    that what you parsed as version. warn() for $] < 5.012.
+
+
+ -- Abe Timmerman <abeltje@cpan.org> Fri, 10 Nov 2023 19:25:12 +0100
 libv-perl (0.16-2) stable; urgency=low
 
     * Path need to be portable, use File::Spec!
