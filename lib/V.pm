@@ -243,7 +243,7 @@ sub version {
             );
         }
         # perl 5.12.0+
-        elsif (m/^\s* package \s+ [^\s]+ \s+ ([^;\{]+) [;\{]/x) {
+        elsif (m/^\s* (?:package|class) \s+ [^\s]+ \s+ ([^;\{]+) [;\{]/x) {
             my $ver = $1;
             push(
                 @eval,
