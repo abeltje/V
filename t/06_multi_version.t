@@ -4,6 +4,7 @@ use t::Test::abeltje;
 plan skip_all => "This perl is not >= 5.12.0" if $] < 5.012;
 
 use Cwd 'abs_path';
+use File::Spec::Functions;
 
 require_ok('V');
 
@@ -27,7 +28,7 @@ require_ok('V');
 
     is($stdout, <<"EOT", "All packages in output") or diag("STDOUT: $stdout");
 GH::Issue1
-\t@{[abs_path('.')]}/t/lib/GH/Issue1.pm:
+\t@{[canonpath(catfile(abs_path('.'), qw<t lib GH Issue1.pm>))]}:
 \t    main: 1.1
 \t    Foo: 1.2
 \t    GH::Issue1: 1.3
