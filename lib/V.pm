@@ -24,13 +24,25 @@ modules without loading them:
     require V;
     printf "%s has version '%s'\n", "V", V::get_version( "V" );
 
+Starting with version B<0.17>, V will show all C<package>s or C<class>es in a file.
+
 If you want all available files/versions from C<@INC>:
 
     require V;
     my @all_V = V::Module::Info->all_installed("V");
     printf "%s:\n", $all_V[0]->name;
-    printf "\t%-50s - %s\n", $_->file, $_->version
-        for @all_V;
+    for my $file (@all_V) {
+        my ($versions) = $file->version; # Must be list context
+        if (@$versions > 1) {
+            printf "\t%s:\n", $file->name;
+            for my $ver (@versions) {
+                print "\t    %-30s: %s\n", $ver->{pkg}, $ver->{version};
+            }
+        }
+        else {
+            printf "\t%-50s - %s\n", $file->file, $versions->[0]{version};
+        }
+    }
 
 Each element in that array isa C<V::Module::Info> object with 3 attributes and a method:
 
@@ -51,8 +63,36 @@ The base directory (from C<@INC>) where the package-file was found.
 =item I<method> B<version>
 
 This method will look through the file to see if it can find a version
-assignment in the file and uses that determine the version. As of version
-0.13_01, all versions found are passed through the L<version> module.
+assignment in the file and uses that to determine the version. As of version
+B<0.13_01>, all versions found are passed through the L<version> module.
+
+As of version B<0.16_03> we look for all types of version declaration:
+
+    package Foo;
+    our $VERSION = 0.42;
+
+and
+
+    package Foo 0.42;
+
+and
+
+    package Foo 0.42 { ... }
+
+Not only do we look for the C<package> keyword, but also for C<class>.
+In list context this method will return an arrayref to a list of structures:
+
+=over 8
+
+=item I<pkg>
+
+The name of the C<package>/C<class>.
+
+=item I<version>
+
+The version for that C<package>/C<class>.
+
+=back
 
 =back
 

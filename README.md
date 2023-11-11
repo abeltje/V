@@ -1,4 +1,4 @@
-# **V** version 0.16
+# **V** version 0.17
 
 This module uses stolen code from
 [`Module::Info`](https://metacpan.org/pod/Module::Info) to find the location
@@ -8,14 +8,29 @@ It works by definening `import()` and is based on an idea from Michael Schwern
 on the perl5-porters list. See [the
 discussion](https://www.nntp.perl.org/group/perl.perl5.porters/2002/01/msg51007.html)
 
-```
-    $ perl -MV=CPAN
+```bash
+$ perl -MV=CPAN
 ```
 
 or if you want more than one package
 
+```bash
+$ perl -MV=CPAN,V
 ```
-    $ perl -MV=CPAN,V
+
+As of version **0.17** it will show all `package`s and `class`es in a file,
+with version if declared.
+
+```bash
+$ perl -MV=Getopt::Long
+Getopt::Long
+        /opt/homebrew/opt/perl/lib/perl5/site_perl/5.38/Getopt/Long.pm:
+            Getopt::Long: 2.56
+            Getopt::Long::CallBack: 
+        /opt/homebrew/opt/perl/lib/perl5/5.38/Getopt/Long.pm:
+            Getopt::Long: 2.54
+            Getopt::Long::Parser: 
+            Getopt::Long::CallBack: 
 ```
 
 # INSTALLATION
@@ -28,8 +43,10 @@ To install this module type the following commands:
 
 # DEPENDENCIES
 
-This module requires no other modules or libraries (exept
-[`Test::More`](https://metacpan.org/pod/Test::More) for the test-suite).
+This module requires no extra modules or libraries from perl version 5.10.1
+(exept [`Test::More`](https://metacpan.org/pod/Test::More),
+[`Test::Warnings`](https://metacpan.org/pod/Test::Warnings),
+[`Test::Fatal`](https://metacpan.org/pod/Test::Fatal) for the test-suite).
 
 # SEE ALSO
 
