@@ -1,3 +1,11 @@
+libv-perl (0.17) stable; urgency=low
+
+    * Last minute documentation work
+    
+    Describe the new behaviour.
+
+
+ -- Abe Timmerman <abeltje@cpan.org> Sat, 11 Nov 2023 12:22:10 +0100
 libv-perl (0.16-3) stable; urgency=low
 
     * Make an effort: we support 5.10.1

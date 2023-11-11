@@ -1,6 +1,13 @@
-0.16_03 2023-11-10T19:40:30+01:00 (7540934 => Abe Timmerman)
+0.17 2023-11-11T12:38:33+01:00 (908076a => Abe Timmerman)
+ - (Abe Timmerman, Sat, 11 Nov 2023 12:38:33 +0100) Autocommit for
+   distribution V 0.17 (minor)
+
+0.16_03 2023-11-10T19:40:30+01:00 (b8a9cbe => Abe Timmerman)
  - (Abe Timmerman, Fri, 10 Nov 2023 19:40:30 +0100) Autocommit for
    distribution V 0.16_03 (test)
+ - (Abe Timmerman, Sat, 11 Nov 2023 12:22:10 +0100) Last minute
+   documentation work
+ -     Describe the new behaviour.
 
 0.16_02 2023-11-10T16:26:04+01:00 (e679804 => Abe Timmerman)
  - (Abe Timmerman, Fri, 10 Nov 2023 16:26:04 +0100) Autocommit for
