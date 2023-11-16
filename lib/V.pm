@@ -6,6 +6,8 @@ $VERSION  = "0.17";
 
 $NO_EXIT ||= 0; # prevent import() from exit()ing and fall of the edge
 
+our $DEBUG ||= 0;
+
 =head1 NAME
 
 V - Print version of the specified module(s).
@@ -247,6 +249,7 @@ sub all_installed {
         }
     }
 
+    do {print {*STDERR} "# $file: @{[scalar $_->version]}\n" for @modules} if $V::DEBUG;
     return @modules;
 }
 
@@ -276,7 +279,7 @@ sub version {
 
         next if $cur_pkg =~ m{^V::Module::Info};
 
-        if (m/^[^=]*([\$*])(([\w\:\']*)\bVERSION)\b.*\=(?!~)/) {
+        if (m/(?:our)?\s*([\$*])(([\w\:\']*)\bVERSION)\s*\=(?![=~])/) {
             { local($1, $2); ($_ = $_) = m/(.*)/; } # untaint
             my ($sigil, $name) = ($1, $2);
             next if m/\$$name\s*=\s*eval.+\$$name/;
@@ -291,7 +294,7 @@ sub version {
             };
         }
         # perl 5.12.0+
-        elsif (m/^\s* (?:package|class) \s+ [^\s]+ \s+ ([^;\{]+) [;\{]/x) {
+        elsif (m/^\s* (?:package|class) \s+ [^\s]+ \s+ (v?[0-9.]+) \s* [;\{]/x) {
             my $ver = $1;
             if ( $] >= 5.012000 ) {
                 $eval{$cur_pkg}{prg} = qq{
@@ -315,6 +318,7 @@ sub version {
     while (my ($pkg, $dat) = each(%eval)) {
         my $result;
         if ($dat->{prg}) {
+            print {*STDERR} "# $pkg: $dat->{prg}\n" if $V::DEBUG;
             local $^W = 0;
             $result = eval($dat->{prg});
             warn "Could not eval '$dat->{prg}' in $parsefile: $@" if $@;
