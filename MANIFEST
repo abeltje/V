@@ -13,8 +13,12 @@ t/04v_version.t
 t/05_pkgwithversion.t
 t/06_multi_version.t
 t/07_class_version.t
+t/08_misleading.t
 t/lib/GH/ClassIssue1.pm
 t/lib/GH/Issue1.pm
+t/lib/Misleading.pm
+t/lib/Misleading/GetVersion.pm
+t/lib/Misleading/Version.pm
 t/lib/PkgWithVersion.pm
 t/lib/PkgWithVersion2.pm
 t/lib/V_Version.pm
