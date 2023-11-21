@@ -1,4 +1,4 @@
-# **V** version 0.17
+# **V** version 0.18
 
 This module uses stolen code from
 [`Module::Info`](https://metacpan.org/pod/Module::Info) to find the location
@@ -10,6 +10,8 @@ discussion](https://www.nntp.perl.org/group/perl.perl5.porters/2002/01/msg51007.
 
 ```bash
 $ perl -MV=CPAN
+CPAN
+        /opt/homebrew/opt/perl/lib/perl5/5.38/CPAN.pm: 2.36
 ```
 
 or if you want more than one package
@@ -18,19 +20,16 @@ or if you want more than one package
 $ perl -MV=CPAN,V
 ```
 
-As of version **0.17** it will show all `package`s and `class`es in a file,
-with version if declared.
+As of version **0.17** it will show all `package`s and `class`es in a file with
+a version. (If one wants *all* packages/classes in the files, set the
+environment variable `PERL_V_SHOW_ALL`)
 
 ```bash
-$ perl -MV=Getopt::Long
-Getopt::Long
-        /opt/homebrew/opt/perl/lib/perl5/site_perl/5.38/Getopt/Long.pm:
-            Getopt::Long: 2.56
-            Getopt::Long::CallBack: 
-        /opt/homebrew/opt/perl/lib/perl5/5.38/Getopt/Long.pm:
-            Getopt::Long: 2.54
-            Getopt::Long::Parser: 
-            Getopt::Long::CallBack: 
+$ perl -MV=SOAP::Lite
+SOAP::Lite
+        /opt/homebrew/opt/perl/lib/perl5/site_perl/5.38/SOAP/Lite.pm:
+            SOAP::Lite: 1.27
+            SOAP::Client: 1.27
 ```
 
 # INSTALLATION

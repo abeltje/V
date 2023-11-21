@@ -6,7 +6,7 @@ $VERSION  = "0.17_00";
 
 $NO_EXIT ||= 0; # prevent import() from exit()ing and fall of the edge
 
-our $DEBUG ||= 0;
+our $DEBUG ||= $ENV{PERL_V_DEBUG} || 0;
 
 =head1 NAME
 
@@ -26,7 +26,9 @@ modules without loading them:
     require V;
     printf "%s has version '%s'\n", "V", V::get_version( "V" );
 
-Starting with version B<0.17>, V will show all C<package>s or C<class>es in a file.
+Starting with version B<0.17>, V will show all C<package>s or C<class>es in a
+file that have a version. If one wants to see all packages/classes from that
+file, set the environment variable C<PERL_V_SHOW_ALL> to a I<true> value.
 
 If you want all available files/versions from C<@INC>:
 
@@ -92,7 +94,12 @@ The name of the C<package>/C<class>.
 
 =item I<version>
 
-The version for that C<package>/C<class>.
+The version for that C<package>/C<class>. (Can be absent if C<$PERL_V_SHOW_ALL>
+is true.)
+
+=item I<ord>
+
+The ordinal number of occurrence in the file.
 
 =back
 
@@ -321,7 +328,8 @@ sub version {
             print {*STDERR} "# $pkg: $dat->{prg}\n" if $V::DEBUG;
             local $^W = 0;
             $result = eval($dat->{prg});
-            warn "Could not eval '$dat->{prg}' in $parsefile: $@" if $@;
+            warn("Could not eval '$dat->{prg}' in $parsefile: $@")
+                if $@ && $V::DEBUG;
 
             # use the version modulue to deal with v-strings
             require version;
@@ -335,6 +343,9 @@ sub version {
                 ord => $dat->{ord}
             }
         );
+    }
+    if (! $ENV{PERL_V_SHOW_ALL}) {
+        @results = grep { exists($_->{version}) } @results;
     }
 
     if (@results > 1) {
