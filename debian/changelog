@@ -1,3 +1,12 @@
+libv-perl (0.17-1) stable; urgency=low
+
+    * Show only packages/classes with a defined version
+    
+    Some code clean-up
+    Add test for packages failing under 0.17
+
+
+ -- Abe Timmerman <abeltje@cpan.org> Tue, 21 Nov 2023 12:08:15 +0100
 libv-perl (0.17-0) stable; urgency=low
 
     * Add new files to MANIFEST

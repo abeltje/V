@@ -1,6 +1,14 @@
-0.17_00 2023-11-16T17:39:06+01:00 (f646cf4 => Abe Timmerman)
+0.17_01 2023-11-21T12:10:53+01:00 (205fb7a => Abe Timmerman)
+ - (Abe Timmerman, Tue, 21 Nov 2023 12:10:53 +0100) Autocommit for
+   distribution V 0.17_01 (test)
+
+0.17_00 2023-11-16T17:39:06+01:00 (dc1088b => Abe Timmerman)
  - (Abe Timmerman, Thu, 16 Nov 2023 17:39:06 +0100) Autocommit for
    distribution V 0.17_00 (test)
+ - (Abe Timmerman, Tue, 21 Nov 2023 12:08:15 +0100) Show only
+   packages/classes with a defined version
+ -     Some code clean-up
+ -     Add test for packages failing under 0.17
 
 0.17 2023-11-11T12:38:33+01:00 (0ddb542 => Abe Timmerman)
  - (Abe Timmerman, Sat, 11 Nov 2023 12:38:33 +0100) Autocommit for
