@@ -290,6 +290,7 @@ sub version {
             { local($1, $2); ($_ = $_) = m/(.*)/; } # untaint
             my ($sigil, $name) = ($1, $2);
             next if m/\$$name\s*=\s*eval.+\$$name/;
+            next if m/my\s*\$VERSION\s*=/;
             $eval{$cur_pkg}{prg} = qq{
                 package V::Module::Info::_version_var;
                 # $cur_pkg
