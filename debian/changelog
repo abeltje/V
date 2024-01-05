@@ -1,3 +1,12 @@
+libv-perl (0.18-0) stable; urgency=low
+
+    * Found another exception: Devel::PPPort
+    
+    It contains `my $VERSION = __VERSION__;` as part of an internal
+    template, we should never look at code like `my $VERSION =`.
+
+
+ -- Abe Timmerman <abeltje@cpan.org> Fri, 05 Jan 2024 12:11:58 +0100
 libv-perl (0.18) stable; urgency=low
 
     * Autocommit for distribution V 0.17_01 (test)
