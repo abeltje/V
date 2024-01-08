@@ -1,3 +1,9 @@
+libv-perl (0.19) stable; urgency=low
+
+    * Autocommit for distribution V 0.18_00 (test)
+
+
+ -- Abe Timmerman <abeltje@cpan.org> Fri, 05 Jan 2024 12:15:30 +0100
 libv-perl (0.18-0) stable; urgency=low
 
     * Found another exception: Devel::PPPort
